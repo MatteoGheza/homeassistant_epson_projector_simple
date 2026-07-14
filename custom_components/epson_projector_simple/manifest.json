@@ -1,10 +1,11 @@
 {
   "domain": "epson_projector_simple",
   "name": "Epson Simple Projector",
+  "codeowners": ["@matteogheza"],
   "config_flow": true,
+  "documentation": "https://github.com/MatteoGheza/homeassistant_epson_projector_simple",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/MatteoGheza/homeassistant_epson_projector_simple/issues",
   "requirements": ["git+https://github.com/pszafer/epson_projector@v0.6.0", "aiohttp"],
-  "dependencies": [],
-  "codeowners": [],
-  "version": "0.1.0",
-  "iot_class": "local_polling"
+  "version": "0.1.0"
 }
