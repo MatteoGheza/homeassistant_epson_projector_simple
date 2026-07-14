@@ -1,12 +1,11 @@
-import logging
 import asyncio
+import logging
 from datetime import timedelta
 
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from homeassistant.core import HomeAssistant
-
+from epson_projector.const import MUTE, POWER
 from epson_projector.projector_tcp import ProjectorTcp
-from epson_projector.const import POWER, MUTE
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import DOMAIN
 
@@ -18,12 +17,12 @@ STATE_OFF = "off"
 STATE_ON = "on"
 
 POWER_CODE_MAP = {
-    "00": STATE_OFF, 
-    "01": STATE_ON, 
-    "02": "warmup", 
+    "00": STATE_OFF,
+    "01": STATE_ON,
+    "02": "warmup",
     "03": "cooldown",
-    "04": STATE_OFF, 
-    "05": STATE_OFF, 
+    "04": STATE_OFF,
+    "05": STATE_OFF,
     "09": STATE_OFF,
 }
 
@@ -80,22 +79,22 @@ class EpsonCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         # Fetch or initialize a fresh client
         projector = self.get_projector()
-        
+
         try:
             # Check power
             power_raw = await projector.get_property(POWER, timeout=5)
             power_state = POWER_CODE_MAP.get(power_raw, "unknown")
-            
+
             self.data["available"] = True
             self.data["power"] = power_state
 
             if power_state == STATE_ON:
                 # Device online and ON -> poll every 10 seconds
                 self.update_interval = timedelta(seconds=10)
-                
+
                 mute_raw = await projector.get_property(MUTE, timeout=5)
                 self.data["av_mute"] = (mute_raw == "ON")
-                
+
                 freeze_raw = await projector.get_property("FREEZE", timeout=5)
                 self.data["freeze"] = (freeze_raw == "ON")
             else:

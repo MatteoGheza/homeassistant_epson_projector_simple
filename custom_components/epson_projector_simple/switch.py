@@ -3,6 +3,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_entities([
@@ -16,7 +17,7 @@ class EpsonSwitch(CoordinatorEntity, SwitchEntity):
         self.switch_type = switch_type
         self.cmd_on = cmd_on
         self.cmd_off = cmd_off
-        
+
         self._attr_name = f"{device_name} {name_suffix}"
         self._attr_unique_id = f"{coordinator.host}_{switch_type}"
 
@@ -34,7 +35,7 @@ class EpsonSwitch(CoordinatorEntity, SwitchEntity):
             projector = self.coordinator.get_projector()
             await projector.send_command(self.cmd_on, timeout=5)
             await self.coordinator.async_request_refresh()
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass
 
     async def async_turn_off(self, **kwargs):
@@ -42,5 +43,5 @@ class EpsonSwitch(CoordinatorEntity, SwitchEntity):
             projector = self.coordinator.get_projector()
             await projector.send_command(self.cmd_off, timeout=5)
             await self.coordinator.async_request_refresh()
-        except Exception:
+        except Exception:  # noqa: BLE001, S110
             pass

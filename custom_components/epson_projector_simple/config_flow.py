@@ -1,6 +1,7 @@
 import voluptuous as vol
 from homeassistant import config_entries
-from .const import DOMAIN, CONF_HOST, CONF_NAME, CONF_PASSWORD
+
+from .const import CONF_HOST, CONF_NAME, CONF_PASSWORD, DOMAIN
 
 
 class EpsonSimpleConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):

@@ -1,7 +1,8 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from .coordinator import EpsonCoordinator
+
 from .const import DOMAIN
+from .coordinator import EpsonCoordinator
 
 PLATFORMS = ["media_player", "switch"]
 
