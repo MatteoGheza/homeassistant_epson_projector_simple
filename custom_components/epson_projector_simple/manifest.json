@@ -6,6 +6,6 @@
   "documentation": "https://github.com/MatteoGheza/homeassistant_epson_projector_simple",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/MatteoGheza/homeassistant_epson_projector_simple/issues",
-  "requirements": ["git+https://github.com/pszafer/epson_projector@v0.6.0", "aiohttp"],
+  "requirements": ["epson-projector@git+https://github.com/pszafer/epson_projector.git@85871d5", "aiohttp"],
   "version": "0.1.0"
 }
